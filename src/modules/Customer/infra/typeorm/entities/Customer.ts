@@ -2,10 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
+import Address from './Address';
 
 @Entity('customers')
 class Customer {
@@ -18,6 +21,11 @@ class Customer {
 
   @Column()
   password: string;
+
+  @OneToMany(() => Address, address => address.customer, {
+    eager: true,
+  })
+  adresses: Address[];
 
   @Column()
   email: string;

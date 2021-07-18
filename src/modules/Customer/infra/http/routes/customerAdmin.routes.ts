@@ -1,17 +1,21 @@
 import { Router } from 'express';
 
-import ensureAuthenticate from '@modules/User/infra/http/middlewares/ensureAuthenticated';
-
 import CustomerController from '../controllers/customerController';
 
-import AuthCustomerController from '../controllers/authCustomerController';
+import AddressAdminController from '../controllers/addressAdminController';
 
 const customerController = new CustomerController();
 const customerRouter = Router();
 
+const addressAdminController = new AddressAdminController();
 customerRouter.get('/', customerController.listAll);
 customerRouter.get('/:idCustomer', customerController.listOne);
 
 customerRouter.put('/:idCustomer', customerController.updateOne);
+
+customerRouter.post('/address/:idCustomer', addressAdminController.create);
+
+customerRouter.put('/address/:addressId', addressAdminController.update);
+customerRouter.delete('/address/:addressId', addressAdminController.delete);
 
 export default customerRouter;
